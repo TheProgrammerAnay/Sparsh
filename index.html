@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparsh's Message for Sonali</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .flower {
+            color: #ff69b4;
+            font-size: 1.2em;
+            margin: 20px 0;
+            white-space: pre;
+        }
+
+        .message {
+            font-size: 1.4em;
+            line-height: 1.6;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .magenta { color: #ff00ff; }
+        .cyan { color: #00ffff; }
+        .yellow { color: #ffff00; }
+        .red { color: #ff0000; }
+        .green { color: #00ff00; }
+        .white { color: #ffffff; }
+
+        .sparkle {
+            position: absolute;
+            animation: sparkle 1s ease-out;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="flower"></div>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const flower = [
+            '          %c{cyan},,,,,          ',
+            '        %c{yellow}(((((((((        ',
+            '       %c{red}((( %c{white}* *%c{red} )))       ',
+            '      %c{yellow}((((%c{white}  @ %c{yellow}))))      ',
+            '    %c{green},,,,/%c{yellow}~~~~~%c{green}\\,,,    ',
+            '   %c{green}(((  %c{red}_<>_%c{green}  )))   ',
+            '    %c{yellow}))%c{green}\\______/%c{yellow}(((    ',
+            '       %c{green}||  ||       ',
+            '       %c{cyan}||  ||       ',
+            '      %c{green}===  ===      ',
+            '     %c{yellow}||||  ||||     ',
+            '    %c{green}||||||||||||    ',
+            '   %c{cyan}||||||||||||||   ',
+            '  %c{yellow}||||||||||||||||  ',
+            ' %c{green}|||||||||||||||||| ',
+            '%c{cyan}||||||||||||||||||||'
+        ];
+
+        const message = [
+            {text: "\nDear Sonali,\n", color: 'magenta', delay: 50},
+            {text: "The Navratri night when we met outside our school...", color: 'cyan', delay: 40},
+            {text: "Those dancing lights in your eyes outshone every diya...", color: 'yellow', delay: 40},
+            {text: "Your laughter was more melodic than any garba rhythm...", color: 'green', delay: 40},
+            {text: "\nLike the marigold that never stops blooming...", color: 'yellow', delay: 50},
+            {text: "My heart keeps finding its way back to you...", color: 'red', delay: 50},
+            {text: "\nOur moments together were like roses -", color: 'white', delay: 50},
+            {text: "Beautiful even with occasional thorns...", color: 'magenta', delay: 50},
+            {text: "\nThis flower of memories will never wilt...", color: 'green', delay: 50},
+            {text: "Because what I feel for you is", color: 'cyan', delay: 60},
+            {text: "\n   ETERNAL  ", color: 'red', delay: 200},
+            {text: "\n\nLet's paint new memories...", color: 'yellow', delay: 50},
+            {text: "Where every day is Navratri,", color: 'magenta', delay: 60},
+            {text: "Every moment a celebration of us...", color: 'cyan', delay: 50},
+            {text: "\nYou're my forever festival of love...", color: 'red', delay: 60},
+            {text: "\nWaiting for our 'Garba of Second Chances'...\n", color: 'green', delay: 50},
+            {text: "\nAlways yours,\nSparsh", color: 'yellow', delay: 80}
+        ];
+
+        async function animateFlower() {
+            const flowerElement = document.getElementById('flower');
+            for (const line of flower) {
+                const div = document.createElement('div');
+                div.className = 'flower';
+                let htmlLine = line;
+                htmlLine = htmlLine.replace(/%c{(\w+)}/g, (match, color) => 
+                    `</span><span class="${color}">`);
+                div.innerHTML = `<span>${htmlLine}</span>`;
+                flowerElement.appendChild(div);
+                await new Promise(r => setTimeout(r, 300));
+            }
+        }
+
+        async function showMessage() {
+            const messageElement = document.getElementById('message');
+            messageElement.style.opacity = 1;
+            
+            for (const part of message) {
+                const p = document.createElement('p');
+                p.className = part.color;
+                messageElement.appendChild(p);
+                
+                for (const char of part.text) {
+                    p.textContent += char;
+                    await new Promise(r => setTimeout(r, part.delay));
+                }
+                await new Promise(r => setTimeout(r, 500));
+            }
+            
+            addSparkles();
+        }
+
+        function addSparkles() {
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = '✨';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() * 1 + 's';
+                document.body.appendChild(sparkle);
+            }
+        }
+
+        async function init() {
+            await animateFlower();
+            await new Promise(r => setTimeout(r, 1000));
+            await showMessage();
+        }
+
+        init();
+    </script>
+</body>
+</html>
